@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: createTable-item
+      author: pgremo
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_item
+              - column:
+                  name: upc
+                  type: varchar(11)
+            tableName: item
+        - createTable:
+            columns:
+              - column:
+                  name: upc
+                  type: varchar(11)
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_item_detail
+              - column:
+                  name: description
+                  type: varchar(255)
+            tableName: item_detail
+        - loadData:
+            file: data/items.csv
+            tableName: item
+        - loadData:
+            file: data/item_details.csv
+            tableName: item_detail
+
